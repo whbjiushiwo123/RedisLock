@@ -1,6 +1,7 @@
 package com.whb.controller;
 
 import com.whb.model.UserEntity;
+import com.whb.service.Business;
 import com.whb.util.LettuceRedisOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class RabbitProcuderController {
     @RequestMapping("/lock")
     public String fanoutSend(@RequestBody List<UserEntity> userEntities){
         String opt = "ok";
-        operation.add();
+        new Business();
         return opt;
     }
 
