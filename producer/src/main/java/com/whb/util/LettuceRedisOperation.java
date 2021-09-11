@@ -14,11 +14,15 @@ public class LettuceRedisOperation {
     @Autowired
     private RedisTemplate redisTemplate;
     public boolean add(String key,String value){
-        return redisTemplate.opsForValue().setIfAbsent(key,value);
+        return redisTemplate.opsForValue().setIfPresent(key,value);
     }
 
     public long del(List<String> keys, String value, RedisScript<Long> script){
          return (long)redisTemplate.execute(script,keys,value);
+    }
+
+    public String getValue(String key){
+        return (String)redisTemplate.opsForValue().get(key);
     }
 
 }

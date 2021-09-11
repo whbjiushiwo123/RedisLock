@@ -1,13 +1,11 @@
 package com.whb.util;
 
+import com.whb.controller.RabbitProcuderController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 
@@ -21,8 +19,9 @@ public class LettuceLock  {
     @Autowired
     private LettuceRedisOperation operation;
     public void lock(String uuid) {
-        while(!tryLock(uuid)){
-            System.out.println("其他线程加锁，尝试重新加锁！");
+        while(tryLock(uuid)){
+            String value = operation.getValue(LOCK);
+            System.out.println(RabbitProcuderController.m.get(value)+ ",其他线程加锁，尝试重新加锁！");
         }
         System.out.println("加锁成功！");
     }

@@ -1,30 +1,25 @@
-package com.whb.service;
+package com.whb.service.impl;
 
+import com.whb.service.IBusiness;
 import com.whb.util.LettuceLock;
 import com.whb.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.CountDownLatch;
+
 @Service
-public class Business implements Runnable{
-    String uuid;
+public class Business implements IBusiness {
+
     @Autowired
     private LettuceLock lock;
-
-    public Business(){
-        this.uuid = UUIDUtils.getUUID();
-    }
-    @Override
-    public void run() {
-        add(uuid);
-    }
-    public void add(String uuid){
-        lock.lock(uuid);
+    public void add(String uuid) throws InterruptedException {
         try{
-            System.out.println(Thread.currentThread().getName()+"，加锁成功，执行业务代码！");
-            Thread.sleep(10000);
+            System.out.println(Thread.currentThread().getName()+"，加锁！");
+            lock.lock(uuid);
             System.out.println(Thread.currentThread().getName()+"，业务执行成功！");
         }catch (Exception e){
+            System.out.println("加锁异常了:"+e);
             e.printStackTrace();
         }finally {
             lock.unlock(uuid);
