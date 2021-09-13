@@ -14,9 +14,10 @@ public class Business implements IBusiness {
     @Autowired
     private LettuceLock lock;
     public void add(String uuid) throws InterruptedException {
+        lock.lock(uuid);
         try{
             System.out.println(Thread.currentThread().getName()+"，加锁！");
-            lock.lock(uuid);
+            Thread.sleep(7000L);
             System.out.println(Thread.currentThread().getName()+"，业务执行成功！");
         }catch (Exception e){
             System.out.println("加锁异常了:"+e);

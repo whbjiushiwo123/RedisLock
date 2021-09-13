@@ -24,6 +24,11 @@ public class LettuceLock  {
             System.out.println(RabbitProcuderController.m.get(value)+ ",其他线程加锁，尝试重新加锁！");
         }
         System.out.println("加锁成功！");
+        try {
+            Thread.sleep(5000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void lockInterruptibly() throws InterruptedException {
