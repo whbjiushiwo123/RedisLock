@@ -26,7 +26,7 @@
         <mybaits-version>3.5.7</mybaits-version>
         <srping.redis.version>2.5.2</srping.redis.version>
         <srping.amqp.version>2.5.2</srping.amqp.version>
-        <srping.web.version>2.5.2</srping.web.version>
+        <springboot.web.version>2.5.2</springboot.web.version>
     </properties>
 
     <dependencies>
@@ -41,9 +41,19 @@
             <version>${srping.amqp.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>5.12.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${srping.web.version}</version>
+            <version>${springboot.web.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <version>${springboot.web.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

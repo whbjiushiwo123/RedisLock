@@ -32,8 +32,6 @@ public class CacheConfig extends CachingConfigurerSupport {
      *
      * @return
      *
-     * @author 单红宇(CSDN CATOOP)
-     * @create 2017年3月11日
      */
     @Override
     public KeyGenerator keyGenerator() {
