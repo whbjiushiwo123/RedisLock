@@ -10,3 +10,8 @@ spring:
     port: 6381 # Redis server port.
     ssl: false # Whether to enable SSL support.
     timeout: 5000 # Connection timeout.
+  rabbitmq:
+    host: "39.101.143.248"
+    port: 5672
+    username: "admin"
+    password: "secret"
