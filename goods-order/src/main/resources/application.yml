@@ -1,0 +1,11 @@
+server:
+  port: 8281
+spring:
+  rabbitmq:
+    host: 39.101.143.248
+    port: 5672
+    username: guest
+    password: guest
+    cache:
+      channel:
+        size: 8

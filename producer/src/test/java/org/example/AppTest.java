@@ -22,7 +22,7 @@ public class AppTest {
     private IGoodsService goodsService;
     @Test
     public void test02(){
-        List<GoodsInfoEntity> entities =  goodsService.getGoodsInfo("1");
-        System.out.println("查到商品数据:"+JSONObject.toJSON(entities));
+//        List<GoodsInfoEntity> entities =  goodsService.getGoodsInfo("1");
+//        System.out.println("查到商品数据:"+JSONObject.toJSON(entities));
     }
 }
