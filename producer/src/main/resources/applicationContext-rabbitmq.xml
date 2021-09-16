@@ -17,7 +17,7 @@
 
     <rabbit:admin connection-factory="rabbitConnectionFactory"/>
     <!-- 短信相关 -->
-    <rabbit:queue id="order-save" durable="false" />
+    <rabbit:queue id="order-save"  name="order-save" durable="true" />
 
     <!-- 将队列和交换器由键绑定 -->
     <rabbit:direct-exchange name="order-save-exchange"
