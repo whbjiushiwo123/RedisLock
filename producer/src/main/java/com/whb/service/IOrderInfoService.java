@@ -2,6 +2,12 @@ package com.whb.service;
 
 import com.whb.model.OrderInfoEntity;
 
+import java.util.List;
+
 public interface IOrderInfoService {
-    void saveOrder(OrderInfoEntity orderInfoEntity);
+    OrderInfoEntity saveOrder(OrderInfoEntity orderInfoEntity);
+
+    OrderInfoEntity queryOrderById(OrderInfoEntity orderInfoEntity);
+
+    OrderInfoEntity updateOrder(OrderInfoEntity orderInfoEntity);
 }

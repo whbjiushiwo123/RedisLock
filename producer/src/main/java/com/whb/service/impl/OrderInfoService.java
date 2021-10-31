@@ -11,7 +11,13 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class OrderInfoService implements IOrderInfoService {
@@ -22,13 +28,31 @@ public class OrderInfoService implements IOrderInfoService {
     private RabbitTemplate rabbitTemplate;
     @Autowired
     private OrderMapper orderMapper;
+
     @Override
-    public void saveOrder(OrderInfoEntity orderInfoEntity) {
+    @Transactional
+    @CachePut(value = "order", key = "#orderInfoEntity.id", unless = "#result eq null")
+    public OrderInfoEntity saveOrder(OrderInfoEntity orderInfoEntity) {
         logger.info("开始发送消息------------------- start："+JSONObject.toJSONString(orderInfoEntity));
         orderMapper.saveOrder(orderInfoEntity);
-        rabbitTemplate.convertAndSend("order-save-exchange","order",
+
+        rabbitTemplate.convertAndSend(ORDER_SAVE_EXCHANGE,ORDER_SAVE_ROUTEKEY,
                 new Message(JSONObject.toJSONString(orderInfoEntity).getBytes(),new MessageProperties()));
 
         logger.info("end-------------------消息发送结束！");
+        return orderInfoEntity;
     }
+
+    @Override
+    @Cacheable(value = "order", key = "#orderInfoEntity.id", unless = "#result eq null")
+    public OrderInfoEntity queryOrderById(OrderInfoEntity orderInfoEntity) {
+        return orderMapper.queryOrderById(orderInfoEntity.getId());
+    }
+
+    @CacheEvict(value = "order", key = "#orderInfoEntity.id")
+    public OrderInfoEntity updateOrder(OrderInfoEntity orderInfoEntity){
+        orderMapper.orderMapper(orderInfoEntity);
+        return orderInfoEntity;
+    }
+
 }

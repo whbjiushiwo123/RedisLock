@@ -13,13 +13,6 @@
   </sql>
 
   <insert id="saveOrder" parameterType="com.whb.model.OrderInfoEntity">
-    INSERT INTO GOODS_ORDER ( ID,GOODS_ID,GOODS_COUNT,USER_ID ) VALUES(#{id},#{goodsId},#{goodsCount},#{userId})
+    INSERT INTO goods_order ( ID,GOODS_ID,GOODS_COUNT,USER_ID ) VALUES(#{id},#{goodsId},#{goodsCount},#{userId})
   </insert>
-
-  <select id="queryOrderById" parameterType="string" resultMap="BaseResultMap">
-    SELECT <include refid="BaseSelectCloumn" /> FROM GOODS_ORDER WHERE ID=#{id}
-  </select>
-  <update id="orderMapper" parameterType="com.whb.model.OrderInfoEntity">
-    UPDATE GOODS_ORDER SET GOODS_COUNT=#{goodsCount} WHERE ID=#{id}
-  </update>
 </mapper>

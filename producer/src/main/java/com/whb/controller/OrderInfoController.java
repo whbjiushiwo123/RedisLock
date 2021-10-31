@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/orderInfo")
 public class OrderInfoController {
@@ -15,8 +17,20 @@ public class OrderInfoController {
     private IOrderInfoService orderInfoService;
     @ResponseBody
     @RequestMapping("/saveOrder")
-    public String saveOrder(@RequestBody OrderInfoEntity orderInfoEntity){
-        orderInfoService.saveOrder(orderInfoEntity);
-        return "OK";
+    public OrderInfoEntity saveOrder(@RequestBody OrderInfoEntity orderInfoEntity){
+        return orderInfoService.saveOrder(orderInfoEntity);
+    }
+
+    @ResponseBody
+    @RequestMapping("/updateOrder")
+    public OrderInfoEntity updateOrder(@RequestBody OrderInfoEntity orderInfoEntity){
+        return orderInfoService.updateOrder(orderInfoEntity);
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/queryOrderById")
+    public OrderInfoEntity queryOrder(@RequestBody OrderInfoEntity orderInfoEntity){
+        return orderInfoService.queryOrderById(orderInfoEntity);
     }
 }
